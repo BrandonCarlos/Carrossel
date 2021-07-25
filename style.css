@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    height: 100vh;
+    /* place-items: pega os items (items-wrapper) e alinhou no centro */
+    place-items: center;
+}
+
+.items-wrapper {
+    width: 100vw;
+}
+
+.items {
+    display: flex;/*mesmo se removermos o flex no item,
+    eles seguiram LADO A LADO*/
+    
+    /* Habilitar o SCROOL somente aqui no items */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory; /* snap = ESTALO(quando solta o mouse faz ESTALO)*/
+    /* Duas propriedades eixo X, e eixo Y */
+    /* Para SCROLL suave */
+    scroll-behavior: smooth;
+}
+
+/* Para apenas 1 imagem fica na tela, e para ver as outras
+só rolando a barra de rolagem */
+.item {
+    flex: none;
+    width: 100%;/* É importante que cada imagem tenha uma largura deste tamanho
+    para que ocupe toda a tela, flex: none; foi apenas para 
+    quebrar o flex, e conseguirmos ajudar largura e height
+    porém o flex continua com ITEM LADO A LADO*/
+    height: 400px;
+    scroll-snap-align: start;/* Verifica a imagem maior e muda a imagem pro lado que tem a imagem maior */
+    -webkit-overflow-scrolling: touch;/* Precisamos ativar isto para a acessecibilidade de outros dispositivos */
+    
+    /* Vamos desativar o evento "wheel" que está aqui no (.item) */
+    pointer-events: none;/* Ou seja nenhum (.item) terá o evento "wheel" o evento de WHEEL será rodado
+    no PAI dele que é o (.items), desativei neles(.item) e irá rodar no PAI DELES(.items) 
+    eu com o cursor encima dos FILHOS(.item) irá me retornar o evento "WHEEL" do PAI (.items)*/
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
